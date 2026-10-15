@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>마음 팔레트</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Jua&family=Noto+Sans+KR:wght@400;500;700&display=swap');
+:root{
+  --ink:#4a3a56;
+  --bg:#fff8f1;
+  --pink:#fa87ad;
+  --pink-soft:#ffe1eb;
+  --mint:#dff8ec;
+  --yellow:#fff4c8;
+  --sky:#dff3ff;
+  --cream:#fffdfb;
+  --line:#725b73;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:'Jua','Noto Sans KR',sans-serif;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 8% 12%, #ffe2ed 0 8%, transparent 22%),
+    radial-gradient(circle at 94% 84%, #dff8ec 0 8%, transparent 22%),
+    var(--bg);
+}
+button,input,textarea{font:inherit}
+button{
+  cursor:pointer;
+  border:2.5px solid #59455d;
+  background:#fff;
+  color:var(--ink);
+  border-radius:22px;
+  padding:11px 18px;
+  box-shadow:0 4px 0 #59455d;
+  min-height:46px;
+}
+button:hover{transform:translateY(-1px);background:#fff5d8}
+button:active{transform:translateY(2px);box-shadow:0 2px 0 #59455d}
+button.primary{background:var(--pink);color:#3a2c45}
+button.primary:hover{background:#ffacc8}
+button.chosen{background:#ffd5e4;border-color:#e778a1}
+input,textarea{
+  width:100%;
+  border:2px solid #a58aa7;
+  background:white;
+  border-radius:18px;
+  padding:13px 15px;
+  color:var(--ink);
+}
+textarea{resize:vertical}
+.wrap{max-width:1180px;margin:auto;padding:18px 20px 48px}
+header{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  background:#ffffffbe;border:2px solid #f5dce7;border-radius:28px;padding:12px 16px;
+}
+.brand{font-size:28px}.brand small{font-size:18px;color:var(--pink)}
+nav{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;flex:1}
+nav button{border:0;box-shadow:none;background:transparent;padding:5px 6px;font-size:16px}
+nav b{display:inline-grid;place-items:center;width:31px;height:31px;border:2px solid #f1c8d8;border-radius:50%;background:#fff4f8;margin-right:4px}
+nav .active b{background:var(--pink);color:#3d3048}
+.topbuttons{display:flex;gap:8px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:26px;margin-top:24px}
+.hero{display:flex;align-items:center;gap:24px;min-height:210px}
+.palette{
+  position:relative;background:#fff;border:4px solid #59455d;border-radius:48% 52% 45% 55%;
+  width:210px;height:180px;box-shadow:0 9px 0 #f5d4e0;transform:rotate(-5deg);flex-shrink:0;
+}
+.palette .pface{position:absolute;font-size:42px}
+.p1{top:10px;left:55px}.p2{right:12px;top:50px}.p3{bottom:10px;left:68px}.p4{left:8px;top:64px}
+.hero h1{font-size:clamp(38px,4.8vw,58px);line-height:1.15;margin:0 0 10px}
+.muted{color:#806e86;font-size:19px;line-height:1.5}
+.field{margin:22px 0 8px}.field label{display:block;font-size:22px;margin-bottom:10px}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
+.note{color:#9c8194;font-size:15px;margin-top:16px}
+.howto{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:22px}
+.howcard{background:#fff;border:2.5px solid #ead0da;border-radius:24px;padding:16px;text-align:center;box-shadow:0 5px 0 #f6dde7}
+.howcard .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--pink);color:#3a2c45;font-size:19px;margin-bottom:8px}
+.howcard strong{display:block;font-size:22px;margin-bottom:6px}
+.howcard p{margin:0;font-size:16px;color:#816f87;line-height:1.35}
+.panel{background:var(--cream);border:3px solid #f0cddd;border-radius:30px;box-shadow:0 7px 0 #f6dde7;padding:24px}
+.panel h2{font-size:34px;margin:0 0 8px}.progress{color:#d66c95;font-size:20px;margin-bottom:8px}
+.builder{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:4px 0 16px}
+.stepchip{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid #e6d3dc;border-radius:18px;padding:8px 12px;font-size:17px}
+.stepchip .circle{display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:#fff4f8;border:2px solid #efbfd0;font-size:16px}
+.stepchip.active{background:#ffe7ef;border-color:#ea88ab}
+.stepchip.active .circle{background:var(--pink)}
+.stepchip.done{background:#eefcf5;border-color:#8ed6b2}
+.stepchip.done .circle{background:#9ae0ba}
+.arrow{font-size:22px;color:#c99ab0}
+.options{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.options button{background:#fff9e8;border-color:#846780;border-radius:21px;font-size:20px;padding:15px 18px;min-height:64px}
+.wide{max-width:640px}.options button{display:flex;align-items:center;gap:7px}.options button .emoji{font-size:27px}.options button:focus-visible{outline:4px solid #72c9ad;outline-offset:2px}.preview .pending{opacity:.65}.preview .fresh{animation:pop .25s ease-out}@keyframes pop{0%{transform:scale(.95)}70%{transform:scale(1.04)}100%{transform:scale(1)}}.helper{font-size:16px;color:#806e86;margin:12px 0 0}
+aside{align-self:start;position:sticky;top:12px}.card-title{font-size:21px;color:#67516d;margin-bottom:10px}
+.preview{border:3px solid #59455d;border-radius:32px;background:var(--yellow);box-shadow:0 8px 0 #59455d;padding:17px}
+.preview .head{display:flex;gap:12px;align-items:center}
+.face{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:#fffef8;border:2px solid #59455d;font-size:44px}
+.preview small,.date{color:#867078}
+.preview h2{font-size:26px;line-height:1.35;margin:5px 0}
+.highlight,.tag{background:#ffd36b;border-radius:12px;padding:1px 8px}
+.scene{height:190px;background:var(--sky);border:2px solid #59455d;border-radius:22px;display:grid;place-items:center;font-size:86px;overflow:hidden;margin:14px 0}
+.reason{font-size:18px;line-height:1.8}.quote{border:2px dashed #b798ae;border-radius:15px;background:white;padding:11px;font-size:17px;min-height:58px}
+.summary{margin-top:14px;background:#fff;border:2px dashed #d7b9c7;border-radius:18px;padding:12px}
+.summary h3{margin:0 0 8px;font-size:22px}.summary ul{list-style:none;padding:0;margin:0}.summary li{display:flex;gap:8px;font-size:16px;margin:6px 0;color:#6f6078}
+.gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:15px;margin-top:18px}
+.mini{border:2px solid #846780;background:#fff4c8;border-radius:25px;box-shadow:0 4px 0 #dec0a1;padding:16px}.mini h3{font-size:22px;margin:8px 0}
+.hide{display:none!important}
+.settings{position:fixed;inset:0;background:#1c1b3580;display:grid;place-items:center;padding:20px;z-index:5}
+.settings>div{background:#fffaf3;border:3px solid #59455d;border-radius:28px;padding:24px;max-width:380px;width:100%}
+body.large{font-size:125%}body.contrast{background:#fff}
+@media(max-width:960px){.layout{grid-template-columns:1fr}aside{position:static}body.working aside{order:-1}body.working .preview .scene{height:105px;font-size:54px}body.working .summary{display:none}.preview{max-width:460px}.howto{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:640px){.wrap{padding:10px}.hero{gap:12px}.hero h1{font-size:36px}.palette{width:100px;height:104px}.palette .pface{font-size:24px}.p1{left:24px;top:4px}.p2{right:0;top:30px}.p3{left:29px;bottom:5px}.p4{top:31px;left:0}.panel{padding:16px}.options button{font-size:18px;padding:13px 14px}.howto{grid-template-columns:1fr}.builder{gap:6px}.stepchip{width:100%;justify-content:flex-start}.arrow{display:none}}
+@media print{header,.topbuttons,.actions button:not(.print-keep),nav{display:none!important}body{background:white}.layout{display:block}aside{width:340px;margin:0 auto}.preview{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">🌈 마음 팔레트 <small>♥</small></div>
+    <nav id="nav"></nav>
+    <div class="topbuttons">
+      <button onclick="showGallery()">우리 반</button>
+      <button onclick="document.getElementById('settings').classList.remove('hide')">⚙️ 보기</button>
+    </div>
+  </header>
+
+  <div class="layout">
+    <main>
+      <section id="home">
+        <div class="hero">
+          <div class="palette">
+            <span class="pface p1">😊</span>
+            <span class="pface p2">🥰</span>
+            <span class="pface p3">😢</span>
+            <span class="pface p4">😡</span>
+          </div>
+          <div>
+            <h1>오늘 내 마음을<br>카드로 만들어 볼까?</h1>
+            <div class="muted">차례대로 하나씩 고르면<br>내 마음 카드가 완성돼요! 🌷</div>
+          </div>
+        </div>
+
+        <div class="field wide">
+          <label for="name">이름을 써 볼까? <span style="font-size:16px;color:#8d7788">안 써도 괜찮아 💛</span></label>
+          <input id="name" placeholder="예: 하늘이" maxlength="20">
+        </div>
+
+        <div class="howto">
+          <div class="howcard"><div class="num">1</div><strong>마음</strong><p>지금 기분을 골라요.</p></div>
+          <div class="howcard"><div class="num">2</div><strong>그림</strong><p>어울리는 그림을 골라요.</p></div>
+          <div class="howcard"><div class="num">3</div><strong>왜?</strong><p>왜 그런지 골라요.</p></div>
+          <div class="howcard"><div class="num">4</div><strong>완성</strong><p>마음 카드를 만들어요.</p></div>
+        </div>
+
+        <div class="actions">
+          <button class="primary" onclick="start()">🚀 시작!</button>
+          <button onclick="showGallery()">💌 카드 보기</button>
+        </div>
+        <p class="note">내가 만든 카드는 이 기기에만 저장돼요. 🔒</p>
+      </section>
+
+      <section id="activity" class="panel hide">
+        <div class="progress" id="progress"></div>
+        <div class="builder" id="builder"></div>
+        <h2 id="question"></h2>
+        <p class="muted" id="hint"></p>
+        <div id="content"></div>
+        <div class="actions">
+          <button onclick="back()">⬅️ 뒤로</button>
+          <button class="primary" onclick="next()" id="nextBtn">다음 ➡️</button>
+          <button onclick="speakCurrent()">🔊 읽어 줘</button>
+        </div>
+      </section>
+
+      <section id="gallery" class="hide">
+        <h1 style="font-size:40px;margin-bottom:8px">우리 반 마음 카드</h1>
+        <p class="muted">우리가 만든 카드를 모아 봐요!</p>
+        <div class="actions" style="margin-top:8px"><button onclick="goHome()">🏠 처음으로</button></div>
+        <div class="gallery" id="galleryItems"></div>
+      </section>
+    </main>
+
+    <aside>
+      <div class="card-title">💌 만들어지는 카드</div>
+      <div class="preview" id="preview">
+        <div class="head">
+          <div class="face" id="cardFace">❔</div>
+          <div>
+            <small id="cardName">나의 마음</small>
+            <h2>오늘 나는 <span class="highlight" id="cardEmotion">골라 줘</span></h2>
+          </div>
+        </div>
+        <div class="scene" id="cardScene">🖼️</div>
+        <div class="reason">왜냐하면 <span class="tag" id="cardReason">골라 줘</span></div>
+        <div style="height:12px"></div>
+        <div class="quote" id="cardMessage">하고 싶은 말을 골라 줘</div>
+        <div class="date" id="cardDate"></div>
+        <div class="summary">
+          <h3>지금까지 고른 것</h3>
+          <ul>
+            <li><span>1.</span><span id="sumEmotion">아직 안 골랐어</span></li>
+            <li><span>2.</span><span id="sumScene">아직 안 골랐어</span></li>
+            <li><span>3.</span><span id="sumReason">아직 안 골랐어</span></li>
+            <li><span>4.</span><span id="sumMessage">아직 안 골랐어</span></li>
+          </ul>
+        </div>
+        <div class="actions" style="margin-top:12px"><button class="print-keep" onclick="window.print()">🖨️ 뽑기</button></div>
+      </div>
+    </aside>
+  </div>
+</div>
+
+<div class="settings hide" id="settings">
+  <div>
+    <h2 style="margin-top:0">⚙️ 보기 설정</h2>
+    <p><label><input type="checkbox" onchange="document.body.classList.toggle('large',this.checked)"> 글씨 크게 보기</label></p>
+    <p><label><input type="checkbox" onchange="document.body.classList.toggle('contrast',this.checked)"> 더 또렷하게 보기</label></p>
+    <button onclick="document.getElementById('settings').classList.add('hide')">닫기</button>
+  </div>
+</div>
+
+<script>
+const steps=['마음','그림','왜?','완성'];
+const emotions=[['😆','신나요'],['😊','기뻐요'],['🥰','좋아요'],['😌','편해요'],['😐','그냥 그래요'],['😴','졸려요'],['😢','슬퍼요'],['😠','화나요'],['😟','걱정돼요'],['😨','무서워요'],['😳','부끄러워요'],['😞','속상해요']];
+const scenes=[['🌈','무지개'],['🏫','학교'],['🧸','장난감'],['🏠','우리 집'],['🌳','나무'],['☁️','하늘'],['🌸','꽃'],['🐱','고양이'],['🐶','강아지'],['⚽','공놀이'],['🎨','그림'],['🍰','케이크'],['📚','책'],['🌧️','비'],['☀️','해'],['💗','하트']];
+const reasons=[['👫','친구랑 놀아서'],['👩‍🏫','선생님이 칭찬해 줘서'],['👨‍👩‍👧','가족이랑 있어서'],['🎁','선물을 받아서'],['🎮','재미있는 걸 해서'],['✅','혼자 해내서'],['😴','잠이 와서'],['🧸','혼자 있고 싶어서'],['🥺','친구랑 다퉈서'],['💧','실수해서'],['😞','하고 싶은 걸 못 해서'],['🌧️','무서운 일이 있어서'],['💭','누군가 보고 싶어서'],['❔','왜 그런지 모르겠어']];
+const messages=[['💗','내 마음을 알아줘!'],['🤗','안아 줘!'],['🎉','같이 놀자!'],['😊','오늘 참 좋아!'],['🌷','고마워!'],['☁️','잠깐 쉬고 싶어.'],['👂','내 이야기 들어 줘.'],['💪','다음에 또 해 볼래!']];
+let step=0;
+let data={};
+const $=id=>document.getElementById(id);
+function speak(text){if(!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(text); u.lang='ko-KR'; u.rate=0.88; speechSynthesis.speak(u)}
+function speakCurrent(){speak(($('question')?.textContent||'')+' '+($('hint')?.textContent||''));}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function setDate(){ $('cardDate').textContent=new Date().toLocaleDateString('ko-KR'); }
+function updateNav(){ $('nav').innerHTML=steps.map((s,i)=>`<button class="${i===step && !$('activity').classList.contains('hide')?'active':''}" ${$('activity').classList.contains('hide')?'disabled':''}><b>${i+1}</b>${s}</button>`).join(''); }
+function updateBuilder(){
+  $('builder').innerHTML=steps.map((s,i)=>{
+    let cls='stepchip';
+    if(i<step) cls+=' done';
+    if(i===step) cls+=' active';
+    return `<div class="${cls}"><span class="circle">${i<step?'✓':i+1}</span><span>${s}</span></div>${i<steps.length-1?'<span class="arrow">➜</span>':''}`;
+  }).join('');
+}
+function goHome(){ document.body.classList.remove('working'); $('home').classList.remove('hide'); $('activity').classList.add('hide'); $('gallery').classList.add('hide'); updateNav(); }
+function start(){
+  data={name:$('name').value.trim()||'나', emotion:null, scene:null, reason:'', message:''}; document.body.classList.add('working');
+  step=0; $('home').classList.add('hide'); $('gallery').classList.add('hide'); $('activity').classList.remove('hide'); render();
+}
+function renderOptions(items,key){return `<div class="options">${items.map((x,i)=>`<button aria-pressed="${data[key]===i}" class="${data[key]===i?'chosen':''}" onclick="choose('${key}',${i})"><span class="emoji">${x[0]}</span>${x[1]} ${data[key]===i?'✓':''}</button>`).join('')}</div>`;}
+function choose(key,value){data[key]=value;render();flash();}
+function chooseText(key,value){data[key]=value;render();flash();}
+function typeText(key,value){data[key]=value;updateCard();flash();}
+function flash(){const card=$('preview');card.classList.remove('fresh');void card.offsetWidth;card.classList.add('fresh');}
+function render(){
+  updateNav(); updateBuilder(); $('progress').textContent=`${step+1} / 4`;
+  let q='',h='',html='';
+  if(step===0){
+    q='지금 기분이 어때? 😊';
+    h='마음과 비슷한 것을 하나 눌러 봐.';
+    html=renderOptions(emotions,'emotion');
+    $('nextBtn').textContent='그림 고르기 ➡️';
+  }
+  if(step===1){
+    q='어떤 그림이 좋을까? 🖼️';
+    h='마음에 어울리는 그림을 골라 봐.';
+    html=renderOptions(scenes,'scene');
+    $('nextBtn').textContent='왜? 고르기 ➡️';
+  }
+  if(step===2){
+    q='왜 이런 마음일까? 💬';
+    h='비슷한 말을 눌러 봐. 없어도 괜찮아!';
+    html=`<div class="options">${reasons.map((r,i)=>`<button aria-pressed="${data.reason===r[1]}" class="${data.reason===r[1]?'chosen':''}" onclick="chooseText('reason',reasons[${i}][1])"><span class="emoji">${r[0]}</span>${r[1]} ${data.reason===r[1]?'✓':''}</button>`).join('')}</div>
+      <div class="field wide"><label for="reasonText">✏️ 내 말로 써도 돼!</label><textarea id="reasonText" rows="2" placeholder="여기에 써 봐" oninput="typeText('reason',this.value)">${escapeHtml(data.reason)}</textarea></div>`;
+    $('nextBtn').textContent='카드 만들기 ➡️';
+  }
+  if(step===3){
+    q='카드에 어떤 말을 넣을까? 💌';
+    h='하나를 누르거나 직접 써 봐. 안 써도 돼!';
+    html=`<div class="options">${messages.map((m,i)=>`<button aria-pressed="${data.message===m[1]}" class="${data.message===m[1]?'chosen':''}" onclick="chooseText('message',messages[${i}][1])"><span class="emoji">${m[0]}</span>${m[1]} ${data.message===m[1]?'✓':''}</button>`).join('')}</div>
+      <div class="field wide"><label for="messageText">✏️ 내 말로 써도 돼!</label><textarea id="messageText" rows="2" placeholder="여기에 써 봐" oninput="typeText('message',this.value)">${escapeHtml(data.message)}</textarea></div>
+      <p class="helper">오른쪽 카드를 보고 마음에 들면 저장해!</p>`;
+    $('nextBtn').textContent='💛 카드 저장하기';
+  }
+  $('question').textContent=q; $('hint').textContent=h; $('content').innerHTML=html; updateCard();
+}
+function updateCard(){
+  const emo=data.emotion===null?null:emotions[data.emotion];
+  const sce=data.scene===null?null:scenes[data.scene];
+  $('cardName').textContent=(data.name||'나')+'의 마음';
+  $('cardFace').textContent=emo?emo[0]:'❔';
+  $('cardEmotion').textContent=emo?emo[1]:'마음을 골라 줘';
+  $('cardScene').textContent=sce?sce[0]:'🖼️';
+  $('cardReason').textContent=data.reason||'왜 그런지 골라 줘';
+  $('cardMessage').textContent=data.message||'카드에 쓸 말 (안 써도 돼)';
+  $('sumEmotion').textContent=emo?emo[0]+' '+emo[1]:'아직 안 골랐어';
+  $('sumScene').textContent=sce?sce[0]+' '+sce[1]:'아직 안 골랐어';
+  $('sumReason').textContent=data.reason||'아직 안 골랐어';
+  $('sumMessage').textContent=data.message||'안 써도 돼';
+  setDate();
+}
+function back(){ if(step>0){ step--; render(); } else goHome(); }
+function next(){if(step===0 && data.emotion===null){alert('마음을 하나 골라 줘!');return;}if(step===1 && data.scene===null){alert('그림을 하나 골라 줘!');return;}if(step===2 && !data.reason.trim()){alert('왜 그런지 하나 골라 줘!');return;}if(step<3){step++;render();}else saveCard();}
+function saveCard(){
+  if(data.emotion===null||data.scene===null||!data.reason.trim()){alert('마음, 그림, 왜? 를 먼저 골라 줘!');return;}
+  const cards=JSON.parse(localStorage.getItem('mindPaletteCards')||'[]');
+  cards.unshift({name:data.name||'나', emotion:data.emotion, scene:data.scene, reason:data.reason, message:data.message||'', date:new Date().toLocaleDateString('ko-KR')});
+  localStorage.setItem('mindPaletteCards',JSON.stringify(cards));
+  showGallery();
+}
+function removeCard(i){ if(!confirm('이 카드를 지울까요?')) return; const cards=JSON.parse(localStorage.getItem('mindPaletteCards')||'[]'); cards.splice(i,1); localStorage.setItem('mindPaletteCards',JSON.stringify(cards)); showGallery(); }
+function showGallery(){
+  document.body.classList.remove('working'); $('home').classList.add('hide'); $('activity').classList.add('hide'); $('gallery').classList.remove('hide'); updateNav();
+  const cards=JSON.parse(localStorage.getItem('mindPaletteCards')||'[]');
+  $('galleryItems').innerHTML=cards.length ? cards.map((c,i)=>`<div class="mini"><div style="font-size:46px">${emotions[c.emotion][0]} ${scenes[c.scene][0]}</div><h3>${escapeHtml(c.name)} · ${emotions[c.emotion][1]}</h3><p>왜? ${escapeHtml(c.reason)}</p><p>${escapeHtml(c.message||'')}</p><small>${c.date}</small><div class="actions" style="margin-top:10px"><button onclick="removeCard(${i})">지우기</button></div></div>`).join('') : '아직 카드가 없어요. 하나 만들어 볼까요? 🌱';
+}
+updateNav(); setDate(); goHome();
+</script>
+</body>
+</html>
